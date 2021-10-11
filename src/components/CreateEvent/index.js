@@ -6,7 +6,10 @@ import './styles.scss';
 
 const CreateEvent = () => {
   const dispatch = useDispatch();
-  // const name = useSelector((state) => state.createEvent.name);
+
+  const email = localStorage.getItem('email');
+  const address = localStorage.getItem('address');
+
   const pictureTest = useSelector((state) => state.createEvent.picture);
   const changeField = (value, key) => {
     dispatch({
@@ -82,7 +85,7 @@ const CreateEvent = () => {
         </div>
         <div className="eventCreation__form__element">
           <label htmlFor="email">Email :</label>
-          <input type="text" name="email" id="email" className="eventCreation__form__element__input" onChange={handleEmailChange} />
+          <input type="text" name="email" id="email" value={email} className="eventCreation__form__element__input" onChange={handleEmailChange} />
         </div>
         <div className="eventCreation__form__element">
           <label htmlFor="description">Description :</label>
@@ -94,14 +97,14 @@ const CreateEvent = () => {
         </div>
         <div className="eventCreation__form__element">
           <label htmlFor="address">Ville :</label>
-          <input type="text" name="address" id="address" className="eventCreation__form__element__input" onChange={handleAddressChange} />
+          <input type="text" name="address" value={address} id="address" className="eventCreation__form__element__input" onChange={handleAddressChange} />
         </div>
         <div className="eventCreation__form__element">
           <label htmlFor="price">Rémunération (si rémunération) :</label>
-          <input type="number" min={0} name="price" id="price" className="eventCreation__form__element__input" onChange={handlePriceChange} />
+          <input type="number" min={0} value="0" name="price" id="price" className="eventCreation__form__element__input" onChange={handlePriceChange} />
         </div>
         <div className="eventCreation__form__element">
-          <label htmlFor="duration">Durée :</label>
+          <label htmlFor="duration">Heure :</label>
           <input type="time" name="duration" id="duration" className="eventCreation__form__element__input" onChange={handleDurationChange} />
         </div>
         <div className="eventCreation__form__element">

@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'http://ec2-3-95-157-245.compute-1.amazonaws.com/',
+  baseURL: 'http://localhost:3001/',
 });
 
 const APIMiddleware = (store) => (next) => (action) => {
@@ -16,10 +16,10 @@ const APIMiddleware = (store) => (next) => (action) => {
       });
   }
   else if (action.type === 'FETCH_HOME') {
-    const artistsList = axios.get('http://ec2-3-95-157-245.compute-1.amazonaws.com/api/v1/users/');
-    const eventsList = axios.get('http://ec2-3-95-157-245.compute-1.amazonaws.com/api/v1/events/');
-    const stylesList = axios.get('http://ec2-3-95-157-245.compute-1.amazonaws.com/api/v1/styles/');
-    const categoriesList = axios.get('http://ec2-3-95-157-245.compute-1.amazonaws.com/api/v1/categories/');
+    const artistsList = axios.get('http://localhost:3001/api/v1/users/');
+    const eventsList = axios.get('http://localhost:3001/api/v1/events/');
+    const stylesList = axios.get('http://localhost:3001/api/v1/styles/');
+    const categoriesList = axios.get('http://localhost:3001/api/v1/categories/');
     Promise.all([artistsList, eventsList, stylesList, categoriesList])
       .then((responses) => {
         const artistList = responses[0].data;
@@ -37,7 +37,7 @@ const APIMiddleware = (store) => (next) => (action) => {
       });
   }
   else if (action.type === 'FETCH_EVENTS') {
-    axios.get('http://ec2-3-95-157-245.compute-1.amazonaws.com/api/v1/events/')
+    axios.get('http://localhost:3001/api/v1/events/')
       .then((response) => {
         store.dispatch({
           type: 'LOAD_EVENTS',
@@ -47,7 +47,8 @@ const APIMiddleware = (store) => (next) => (action) => {
   }
   else if (action.type === 'NEW_EVENTS') {
     const state = store.getState();
-    axios.post('http://ec2-3-95-157-245.compute-1.amazonaws.com/api/v1/events/', {
+    const id = localStorage.getItem('id');
+    axios.post('http://localhost:3001/api/v1/events/', {
       address: state.createEvent.address,
       date: state.createEvent.date,
       description: state.createEvent.description,
@@ -57,7 +58,8 @@ const APIMiddleware = (store) => (next) => (action) => {
       picture: state.createEvent.picture,
       price: state.createEvent.price,
       slug: state.createEvent.slug,
-      user: 1,
+      user: id,
+      // user: 1,
     })
       .then(() => {
         window.scroll(0, 0);
@@ -66,7 +68,7 @@ const APIMiddleware = (store) => (next) => (action) => {
   }
   else if (action.type === 'NEW_USER') {
     const state = store.getState();
-    axios.post('http://ec2-3-95-157-245.compute-1.amazonaws.com/api/v1/users/', {
+    let user_type = {
       type: state.createProfil.type,
       name: state.createProfil.name,
       firstname: state.createProfil.firstname,
@@ -81,10 +83,15 @@ const APIMiddleware = (store) => (next) => (action) => {
       instagram: state.createProfil.instagram,
       twitter: state.createProfil.twitter,
       picture: state.createProfil.picture,
-      user_style: state.createProfil.user_style,
-      user_category: state.createProfil.user_category,
       slug: state.createProfil.slug,
-    })
+    };
+    if (state.createProfil.type === 'organisateur') {
+      user_type.category = [state.createProfil.user_category];
+    }
+    else {
+      user_type.style = [state.createProfil.user_style];
+    }
+    axios.post('http://localhost:3001/api/v1/users/', user_type)
       .then(() => {
         window.scroll(0, 0);
         window.location = '/connexion';
@@ -93,7 +100,7 @@ const APIMiddleware = (store) => (next) => (action) => {
   else if (action.type === 'LOGIN') {
     const state = store.getState();
     const token = null;
-    axios.post('http://ec2-3-95-157-245.compute-1.amazonaws.com/api/login_check', {
+    axios.post('http://localhost:3001/api/login_check', {
       username: state.connectedUser.email,
       password: state.connectedUser.password,
     }, {
@@ -102,13 +109,14 @@ const APIMiddleware = (store) => (next) => (action) => {
       },
     })
       .then((response) => {
-        // console.log(response);
+        console.log(response);
         api.defaults.headers.common.Authorization = `bearer ${response.data.token}`;
         store.dispatch({
           type: 'SAVE_USER',
         });
-        // console.log(response);
+        console.log(response);
         localStorage.setItem('token', response.data.token);
+        localStorage.setItem('id', response.data.data.id);
         // localStorage.setItem('style', response.data.style.name);
         localStorage.setItem('type', response.data.data.type);
         localStorage.setItem('name', response.data.data.name);
@@ -128,8 +136,8 @@ const APIMiddleware = (store) => (next) => (action) => {
         window.scroll(0, 0);
         window.location = '/';
       })
-      .catch(() => {
-        // console.error(error);
+      .catch((error) => {
+        console.error(error);
         alert('Authentification échouée');
       });
   }
