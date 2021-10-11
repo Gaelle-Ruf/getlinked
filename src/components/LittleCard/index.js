@@ -18,13 +18,8 @@ import './styles.scss';
 // == Composant
 const LittleCard = ({
   name,
-  // firstname,
-  // lastname,
   picture,
-  // description,
-  // nb_members,
   address,
-  // email,
   slug,
   type,
 }) => (
@@ -57,14 +52,9 @@ const LittleCard = ({
 
 LittleCard.propTypes = {
   name: PropTypes.string.isRequired,
-  // firstname: PropTypes.string.isRequired,
-  // lastname: PropTypes.string.isRequired,
   picture: PropTypes.string.isRequired,
-  // description: PropTypes.string.isRequired,
-  // nb_members: PropTypes.number,
   address: PropTypes.string.isRequired,
-  // email: PropTypes.string.isRequired,
-  // slug: PropTypes.string.isRequired,
+  slug: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
 };
 

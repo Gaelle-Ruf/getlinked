@@ -8,7 +8,6 @@ import PropTypes from 'prop-types';
 import banner from './images/banner.jpg';
 import banner3 from './images/banner3.jpeg';
 import banner4 from './images/banner4.jpeg';
-import nathan from './images/nathan.jpg';
 import etoile from './images/etoile.png';
 import etoileTwo from './images/etoile2.png';
 import pin from './images/pin2.png';
@@ -19,13 +18,9 @@ import './styles.scss';
 // == Composant
 const Cards = ({
   name,
-  firstname,
-  lastname,
   picture,
   description,
-  nb_members,
   address,
-  email,
   slug,
   type,
 }) => (
@@ -61,13 +56,9 @@ const Cards = ({
 
 Cards.propTypes = {
   name: PropTypes.string.isRequired,
-  // firstname: PropTypes.string.isRequired,
-  // lastname: PropTypes.string.isRequired,
   picture: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
-  // nb_members: PropTypes.number,
   address: PropTypes.string.isRequired,
-  // email: PropTypes.string.isRequired,
   slug: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
 };

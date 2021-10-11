@@ -4,8 +4,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
+  flex-direction: row;
   position: relative;
+  height: 150px;
 
   &__title {
     font-size: 3rem;
@@ -15,21 +16,21 @@
 
   &__img {
     width: 300px;
-    animation: movingError 5s infinite linear;
+    animation: movingError 8s infinite linear;
     position: absolute;
-    top: 90%;
+    top: 150%;
   }
 }
 
 @keyframes movingError {
   0% {
-    transform: translateX(-100%);
+    transform: translateX(-100%) rotate(-360deg);
   }
   50% {
-    transform: translateX(100%);
+    transform: translateX(100%) rotate(0deg);
   }
   100% {
-    transform: translateX(-100%);
+    transform: translateX(-100%) rotate(360deg);
   }
 }
 

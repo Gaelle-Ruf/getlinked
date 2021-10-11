@@ -16,6 +16,13 @@ const Header = () => {
   };
 
   const menuOpened = useSelector((state) => state.menuOpened);
+  const logged = useSelector((state) => state.logged);
+
+  const handleLogout = () => {
+    dispatch({
+      type: 'LOGOUT',
+    });
+  };
 
   return (
     <div className="header">
@@ -42,9 +49,16 @@ const Header = () => {
             <NavLink exact to="/profil" activeClassName="header__menu-opened__ul__li__active">
               <li className="header__menu-opened__ul__li">Profil</li>
             </NavLink>
-            <NavLink exact to="/connexion" activeClassName="header__menu-opened__ul__li__active">
-              <li className="header__menu-opened__ul__li">Connexion</li>
+            {logged && (
+            <NavLink exact to="/deconnexion" onClick={handleLogout}>
+              <li className="header__menu-opened__ul__li">Deconnexion</li>
             </NavLink>
+            )}
+            {!logged && (
+              <NavLink exact to="/connexion" activeClassName="header__menu-opened__ul__li__active">
+                <li className="header__menu-opened__ul__li">Connexion</li>
+              </NavLink>
+            )}
           </ul>
         </div>
       )}
@@ -69,9 +83,16 @@ const Header = () => {
           <NavLink exact to="/profil" activeClassName="header__menu-opened__ul__li__active">
             Profil
           </NavLink>
-          <NavLink exact to="/connexion" activeClassName="header__menu-opened__ul__li__active">
-            Connexion
-          </NavLink>
+          {logged && (
+            <NavLink exact to="/deconnexion" onClick={handleLogout}>
+              Déconnexion
+            </NavLink>
+          )}
+          {!logged && (
+            <NavLink exact to="/connexion" activeClassName="header__menu-opened__ul__li__active">
+              Connexion
+            </NavLink>
+          )}
         </div>
       </div>
     </div>

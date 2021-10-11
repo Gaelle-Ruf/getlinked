@@ -6,7 +6,6 @@ import './styles.scss';
 
 import ArtisteDetailComp from 'src/components/ArtisteDetailComp';
 import PromoterDetailComp from 'src/components/PromoterDetailComp';
-import EventsDetailComp from 'src/components/EventsDetailComp';
 
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
@@ -21,15 +20,6 @@ const UserDetail = () => {
 
   const { slug } = useParams();
   const user = useSelector((state) => findUser(state.users, slug));
-  console.log('user :' + user);
-  // const event = useSelector((state) => findUser(state.events, slug));
-  // console.log('event :' + event);
-
-  // if (user === undefined) {
-  //   return (
-  //     <EventsDetailComp userDetail={event} />
-  //   );
-  // }
 
   if (user.type === 'artiste') {
     return (

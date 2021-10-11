@@ -18,11 +18,7 @@ const EventDetail = () => {
   }
 
   const { slug } = useParams();
-  // const user = useSelector((state) => findUser(state.users, slug));
-  // console.log('user :' + user);
-  // console.log(slug);
   const event = useSelector((state) => findUser(state.events, slug));
-  console.log('event :' + event);
 
   return (
     <EventsDetailComp userDetail={event} />

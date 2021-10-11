@@ -53,8 +53,6 @@ const CarouselComponent = () => {
       slideImageFit="cover"
       style={{
         textAlign: 'center',
-        // maxWidth: '850px',
-        // maxHeight: '500px',
         margin: '0 auto',
         padding: '0 0rem',
         display: 'flex',

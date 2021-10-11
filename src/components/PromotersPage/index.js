@@ -8,7 +8,10 @@ import './styles.scss';
 
 // == Composant
 const PromotersPage = () => {
+  const dispatch = useDispatch();
+  const styles = useSelector((state) => state.styles);
   const users = useSelector((state) => state.users);
+
   const promoters = [];
   users.forEach((user) => {
     if (user.type === 'organisateur') {
@@ -20,6 +23,44 @@ const PromotersPage = () => {
   for (let index = 0; index < 3; index++) {
     betterRatedPromoter.push(promoters[index]);
   }
+
+  // Change Field Function
+  const changeField = (value, key) => {
+    dispatch({
+      type: 'CHANGE_FILTER_PROMOTERS',
+      value: value,
+      key: key,
+    });
+  };
+
+  // Filter Handler :
+  const handleSearchBar = (evt) => {
+    changeField(evt.target.value.toLowerCase(), 'search');
+  };
+  const handleLocation = (evt) => {
+    changeField(evt.target.value.toLowerCase(), 'location');
+  };
+  const handleStyle = (evt) => {
+    changeField(evt.target.value, 'style');
+  };
+
+  // Search Bar :
+  const searchBarValue = useSelector((state) => state.promotersPageFilters.search);
+  const searchLocationValue = useSelector((state) => state.promotersPageFilters.location);
+  const newValue = [];
+  promoters.forEach((user) => {
+    if (user.name.toLowerCase().includes(searchBarValue)) {
+      newValue.push(user);
+    }
+  });
+
+  // Location :
+  const promotersAfterLocation = [];
+  newValue.forEach((user) => {
+    if (user.address.toLowerCase().includes(searchLocationValue)) {
+      promotersAfterLocation.push(user);
+    }
+  });
 
   function paginator(items, currentPage, perPageItems) {
     const page = currentPage || 1;
@@ -37,7 +78,6 @@ const PromotersPage = () => {
       data: paginatedItems,
     };
   }
-  const dispatch = useDispatch();
   const promotersPage = useSelector((state) => state.promotersPage);
   const handleNextPage = (event) => {
     event.preventDefault();
@@ -51,7 +91,7 @@ const PromotersPage = () => {
       type: 'DECREASE_PROMOTERS_PAGE_NUMBER',
     });
   };
-  const pagination = paginator(promoters, promotersPage, 6);
+  const pagination = paginator(promotersAfterLocation, promotersPage, 6);
   const numberOfPages = pagination.totalPages;
   const promotersToDisplay = pagination.data;
 
@@ -67,16 +107,15 @@ const PromotersPage = () => {
       </div>
       <form method="get" className="promoters-page__from">
         <h1 className="promoters-page__from__title">Affiner votre recherche</h1>
-        <input type="text" name="promotersPageSearch" id="promotersPageSearch" placeholder="Rechercher" className="promoters-page__from__input--search" />
+        <input type="text" name="promotersPageSearch" id="promotersPageSearch" placeholder="Rechercher" className="promoters-page__from__input--search" onChange={handleSearchBar} />
         <div className="promoters-page__from__bottom">
-          <select name="promotersPageSelectStyle" id="promotersPageSelectStyle" className="promoters-page__from__input">
-            <option value="rock">Rock</option>
-            <option value="jazz">Jazz</option>
-            <option value="classique">Classique</option>
-            <option value="rap">Rap</option>
+          <select name="promotersPageSelectStyle" id="promotersPageSelectStyle" className="promoters-page__from__input" onChange={handleStyle}>
+            <option value="">-- Choisir un style --</option>
+            {styles.map((style) => (
+              <option value={style.name} key={style.name}>{style.name}</option>
+            ))}
           </select>
-          <input type="text" name="promotersPageLocation" id="promotersPageLocation" placeholder="Localisation (ville)" className="promoters-page__from__input" />
-          <input type="number" name="promotersPageNumber" id="promotersPageNumber" min="1" max="50" range="1" className="promoters-page__from__input" placeholder="Nombre d'promoters" />
+          <input type="text" name="promotersPageLocation" id="promotersPageLocation" placeholder="Localisation (ville)" className="promoters-page__from__input" onChange={handleLocation} />
         </div>
       </form>
       <div className="promoters-page__list">

@@ -2804,6 +2804,11 @@ electron-to-chromium@^1.3.830:
   resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.842.tgz#641e414012dded277468892c0156cb01984f4f6f"
   integrity sha512-P/nDMPIYdb2PyqCQwhTXNi5JFjX1AsDVR0y6FrHw752izJIAJ+Pn5lugqyBq4tXeRSZBMBb2ZGvRGB1djtELEQ==
 
+emailjs-com@^3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/emailjs-com/-/emailjs-com-3.2.0.tgz#a53cb22f1bc433c701c84c53d8b56eefd5ce7111"
+  integrity sha512-Prbz3E1usiAwGjMNYRv6EsJ5c373cX7/AGnZQwOfrpNJrygQJ15+E9OOq4pU8yC977Z5xMetRfc3WmDX6RcjAA==
+
 emoji-regex@^7.0.1:
   version "7.0.3"
   resolved "https://registry.yarnpkg.com/emoji-regex/-/emoji-regex-7.0.3.tgz#933a04052860c85e83c122479c4748a8e4c72156"

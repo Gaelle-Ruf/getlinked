@@ -1,6 +1,11 @@
 // == Import
 
-import { Switch, Route, useLocation } from 'react-router-dom';
+import {
+  Switch,
+  Route,
+  useLocation,
+  Redirect,
+} from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 
@@ -32,15 +37,16 @@ const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // dispatch({
-    //   type: 'FETCH_ARTISTS',
-    // });
-    // dispatch({
-    //   type: 'FETCH_EVENTS',
-    // });
     dispatch({
       type: 'FETCH_HOME',
     });
+
+    if (localStorage.getItem('token') !== null) {
+      // console.log('connexté');
+      dispatch({
+        type: 'SAVE_USER',
+      });
+    }
   }, []);
 
   const { pathname } = useLocation();
@@ -53,6 +59,7 @@ const App = () => {
   }, [pathname]);
 
   const loading = useSelector((state) => state.loading);
+  const logged = useSelector((state) => state.logged);
 
   if (loading) {
     return <Loading />;
@@ -69,62 +76,104 @@ const App = () => {
           <HomepageArtists />
           <Footer />
         </Route>
-        <Route exact path="/artistes">
-          <Header />
-          <ArtistesPage />
-          <Footer />
-        </Route>
-        <Route exact path="/artistes/:slug">
-          <Header />
-          <UserDetail />
-          <Footer />
-        </Route>
-        <Route exact path="/evenements">
-          <Header />
-          <EventsPage />
-          <Footer />
-        </Route>
-        <Route exact path="/events/:slug">
-          <Header />
-          <EventDetail />
-          <Footer />
-        </Route>
-        <Route exact path="/evenement/nouveau">
-          <Header />
-          <CreateEvent />
-          {/* <Footer /> */}
-        </Route>
-        <Route exact path="/organisateurs">
-          <Header />
-          <PromotersPage />
-          <Footer />
-        </Route>
-        <Route exact path="/organisateurs/:slug">
-          <Header />
-          <UserDetail />
-          <Footer />
-        </Route>
+        {logged && (
+          <Route exact path="/artistes">
+            <Header />
+            <ArtistesPage />
+            <Footer />
+          </Route>
+        )}
+        {!logged && (
+          <Redirect from="/artistes" to="/connexion" />
+        )}
+        {logged && (
+          <Route exact path="/artistes/:slug">
+            <Header />
+            <UserDetail />
+            <Footer />
+          </Route>
+        )}
+        {logged && (
+          <Route exact path="/evenements">
+            <Header />
+            <EventsPage />
+            <Footer />
+          </Route>
+        )}
+        {!logged && (
+          <Redirect from="/evenements" to="/connexion" />
+        )}
+        {logged && (
+          <Route exact path="/events/:slug">
+            <Header />
+            <EventDetail />
+            <Footer />
+          </Route>
+        )}
+        {!logged && (
+          <Redirect from="/events" to="/connexion" />
+        )}
+        {logged && (
+          <Route exact path="/evenement/nouveau">
+            <Header />
+            <CreateEvent />
+            <Footer />
+          </Route>
+        )}
+        {!logged && (
+          <Redirect from="/evenement/nouveau" to="/connexion" />
+        )}
+        {logged && (
+          <Route exact path="/organisateurs">
+            <Header />
+            <PromotersPage />
+            <Footer />
+          </Route>
+        )}
+        {!logged && (
+          <Redirect from="/organisateurs" to="/connexion" />
+        )}
+        {logged && (
+          <Route exact path="/organisateurs/:slug">
+            <Header />
+            <UserDetail />
+            <Footer />
+          </Route>
+        )}
+        {logged && (
+          <Route exact path="/profil">
+            <Header />
+            <Profile />
+            <Footer />
+          </Route>
+        )}
+        {!logged && (
+          <Redirect from="/profil" to="/connexion" />
+        )}
         <Route exact path="/connexion">
           <Header />
           <LoginForm />
-        </Route>
-        <Route exact path="/profil">
-          <Header />
-          <Profile />
-          <Footer />
         </Route>
         <Route exact path="/nouveau-compte">
           <Header />
           <Register />
           <Footer />
         </Route>
-        <Route exact path="/modifier-le-compte">
-          <Header />
-          <EditProfile />
-        </Route>
+        {logged && (
+          <Route exact path="/modifier-le-compte">
+            <Header />
+            <EditProfile />
+          </Route>
+        )}
+        {!logged && (
+          <Redirect from="/modifier-le-compte" to="/connexion" />
+        )}
         <Route exact path="/faq">
           <Header />
           <Faq />
+        </Route>
+        <Route exact path="/deconnexion">
+          <Redirect from="/deconnexion" to="/" />
         </Route>
         <Route>
           <Header />

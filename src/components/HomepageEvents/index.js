@@ -9,12 +9,10 @@ import './styles.scss';
 // == Composant
 const HomepageEvents = () => {
   const events = useSelector((state) => state.events);
-  // console.log(events);
   const bestEvents = [];
   for (let index = 0; index < 4; index++) {
     bestEvents.push(events[index]);
   }
-  console.log(bestEvents);
   return (
     <div className="upcomming-events">
       <h1 className="upcomming-events__title">événements à venir</h1>

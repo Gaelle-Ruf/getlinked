@@ -6,6 +6,8 @@
     &__img{
       border-radius: 50%;
       width: 10rem;
+      height: 10rem;
+      object-fit: cover;
       align-self: center;
       margin-bottom: 2rem;
     }
@@ -26,8 +28,6 @@
         margin-top: 2rem;
       }
   }
-
-
 }
 
 .info{
