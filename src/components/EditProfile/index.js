@@ -138,7 +138,7 @@ const EditProfile = () => {
         </div> */}
         <div className="register__form__element">
           <label htmlFor="address">Ville :</label>
-          <input type="text" name="address" id="address" placeholder={address} className="register__form__element__input" onChange={handleAddressChange}/>
+          <input type="text" name="address" id="address" placeholder={address} className="register__form__element__input" onChange={handleAddressChange} />
         </div>
         <div className="register__form__element">
           <label htmlFor="website">Site :</label>

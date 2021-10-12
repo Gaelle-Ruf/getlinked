@@ -1,3 +1,5 @@
+/* eslint-disable prefer-const */
+/* eslint-disable camelcase */
 /* eslint-disable prefer-template */
 import axios from 'axios';
 
@@ -117,7 +119,7 @@ const APIMiddleware = (store) => (next) => (action) => {
       slug: state.editProfil.slug,
     })
       .then((response) => {
-        console.log(response);
+        // console.log(response);
 
         localStorage.setItem('name', response.data.name);
         localStorage.setItem('firstname', response.data.firstname);
@@ -148,12 +150,12 @@ const APIMiddleware = (store) => (next) => (action) => {
       },
     })
       .then((response) => {
-        console.log(response);
+        // console.log(response);
         api.defaults.headers.common.Authorization = `bearer ${response.data.token}`;
         store.dispatch({
           type: 'SAVE_USER',
         });
-        console.log(response);
+        // console.log(response);
         localStorage.setItem('token', response.data.token);
         localStorage.setItem('id', response.data.data.id);
         // localStorage.setItem('style', response.data.style.name);
@@ -175,8 +177,7 @@ const APIMiddleware = (store) => (next) => (action) => {
         window.scroll(0, 0);
         window.location = '/';
       })
-      .catch((error) => {
-        console.error(error);
+      .catch(() => {
         alert('Authentification échouée');
       });
   }
