@@ -39,6 +39,23 @@ const initialState = {
     picture: '',
     slug: '',
   },
+  editProfil: {
+    // type: '',
+    name: localStorage.getItem('name'),
+    firstname: localStorage.getItem('firstname'),
+    lastname: localStorage.getItem('lastname'),
+    email: localStorage.getItem('email'),
+    // password: '',
+    description: localStorage.getItem('description'),
+    // nb_members: null,
+    address: localStorage.getItem('address'),
+    website: localStorage.getItem('website'),
+    facebook: localStorage.getItem('facebook'),
+    instagram: localStorage.getItem('instagram'),
+    twitter: localStorage.getItem('twitter'),
+    picture: localStorage.getItem('picture'),
+    slug: localStorage.getItem('slug'),
+  },
   artistesPageFilters: {
     search: '',
     style: '',
@@ -152,6 +169,15 @@ const reducer = (state = initialState, action = {}) => {
         ...state,
         createProfil: {
           ...state.createProfil,
+          [action.key]: action.value,
+        },
+      };
+
+    case 'CHANGE_VALUE_EDIT_USER':
+      return {
+        ...state,
+        editProfil: {
+          ...state.editProfil,
           [action.key]: action.value,
         },
       };
