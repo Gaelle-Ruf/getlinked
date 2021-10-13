@@ -57,13 +57,15 @@
         margin: 1rem;
   
         &__img {
+          height: 121px;
+          max-height: 121px;
+          object-fit: cover;
           width: 100%;
-          // border-radius: 50%;
         }
   
         &__p {
           text-align: center;
-          margin: 1rem 0;
+          margin: 0.5rem 0;
         }
       }
     }

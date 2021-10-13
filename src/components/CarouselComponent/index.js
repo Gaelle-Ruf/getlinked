@@ -21,15 +21,27 @@ const CarouselComponent = () => {
     },
     {
       image: second,
-      caption: 'autre titre ?',
+      caption: `<div>
+                  <h1 class='carousel__title'>Organisateurs</h1>
+                  <p class='carousel__description'>Attirez plus de clients</p>
+                  <p class='carousel__description'>et bien plus encore</p>
+                </div>`,
     },
     {
       image: third,
-      caption: 'encore un autre ?',
+      caption: `<div>
+                  <h1 class='carousel__title'>Artistes</h1>
+                  <p class='carousel__description'>Augmentez votre notoriété</p>
+                  <p class='carousel__description'>et bien plus encore</p>
+                </div>`,
     },
     {
       image: fourth,
-      caption: 'raph on t\'aime',
+      caption: `<div>
+                  <h1 class='carousel__title'>Bientôt</h1>
+                  <p class='carousel__description'>Disponible pour tous</p>
+                  <p class='carousel__description'>les artistes</p>
+                </div>`,
     },
   ];
 

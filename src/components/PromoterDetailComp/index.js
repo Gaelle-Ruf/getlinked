@@ -69,7 +69,7 @@ const PromoterDetailComp = ({ userDetail }) => {
     });
   };
 
-  console.log(userDetail);
+  // console.log(userDetail);
 
   return (
     <div className="detail-container">

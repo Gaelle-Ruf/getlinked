@@ -66,7 +66,7 @@ const APIMiddleware = (store) => (next) => (action) => {
     })
       .then(() => {
         window.scroll(0, 0);
-        window.location.reload();
+        window.location = '/evenements';
       });
   }
   else if (action.type === 'NEW_USER') {

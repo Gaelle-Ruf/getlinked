@@ -18,12 +18,17 @@ const Profile = () => {
   const instagram = localStorage.getItem('instagram');
   const twitter = localStorage.getItem('twitter');
   const picture = localStorage.getItem('picture');
+  const style = localStorage.getItem('style');
   // const slug = localStorage.getItem('slug');
 
   return (
     <div className="profil">
 
       {picture && <img src={picture} alt="" className="profil__img" />}
+
+      {type === 'artiste' && <p className="profil__info__nameArtiste info">Nom d'artiste :</p>}
+      {type === 'organisateur' && <p className="profil__info__nameArtiste info">Nom de l'organisme :</p>}
+      <p className="infos">{name}</p>
 
       <p className="profil__info__firstName info">Nom :</p>
       <p className="infos">{lastname}</p>
@@ -33,10 +38,6 @@ const Profile = () => {
 
       <p className="profil__info__email info">Email :</p>
       <p className="infos">{email}</p>
-
-      {type === 'artiste' && <p className="profil__info__nameArtiste info">Nom d'artiste :</p>}
-      {type === 'organisateur' && <p className="profil__info__nameArtiste info">Nom de l'organisme :</p>}
-      <p className="infos">{name}</p>
 
       <p className="profil__info__description info">Description : </p>
       <p className="infos">{description}</p>
@@ -48,12 +49,12 @@ const Profile = () => {
         <p className="infos">{nbMembers}</p>
       )}
 
-      {type === 'artiste' && (
+      {/* {type === 'artiste' && (
         <p className="profil__info__styleMusique info">Style de musique :</p>
       )}
       {type === 'artiste' && (
-        <p className="infos">Inconnu</p>
-      )}
+        <p className="infos">{style}</p>
+      )} */}
 
       <p className="profil__info__Location info">Localisation :</p>
       <p className="infos">{address}</p>

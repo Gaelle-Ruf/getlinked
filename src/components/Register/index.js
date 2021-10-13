@@ -148,7 +148,7 @@ const Register = () => {
             <label htmlFor="type">Style de musique :</label>
             <select name="type" id="type" className="register__form__element__input" onChange={handleUserStyleChange}>
               <option value="">-- Choisir un style --</option>
-              {console.log(styles)}
+              {/* {console.log(styles)} */}
               {styles.map((style) => (
                 <option value={style.id} key={style.name}>{style.name}</option>
               ))}
@@ -161,7 +161,7 @@ const Register = () => {
             <label htmlFor="type">Type d'établissement :</label>
             <select name="type" id="type" className="register__form__element__input" onChange={handleUserCategoryChange}>
               <option value="">-- Choisir un type --</option>
-              {console.log(categoriesList)}
+              {/* {console.log(categoriesList)} */}
               {categoriesList.map((category) => (
                 <option value={category.id} key={category.name}>{category.name}</option>
               ))}
