@@ -4,7 +4,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'http://localhost:3001/',
+  baseURL: 'http://ec2-18-206-251-132.compute-1.amazonaws.com/',
 });
 
 const APIMiddleware = (store) => (next) => (action) => {
@@ -19,10 +19,10 @@ const APIMiddleware = (store) => (next) => (action) => {
       });
   }
   else if (action.type === 'FETCH_HOME') {
-    const artistsList = axios.get('http://localhost:3001/api/v1/users/');
-    const eventsList = axios.get('http://localhost:3001/api/v1/events/');
-    const stylesList = axios.get('http://localhost:3001/api/v1/styles/');
-    const categoriesList = axios.get('http://localhost:3001/api/v1/categories/');
+    const artistsList = axios.get('http://ec2-18-206-251-132.compute-1.amazonaws.com/api/v1/users/');
+    const eventsList = axios.get('http://ec2-18-206-251-132.compute-1.amazonaws.com/api/v1/events/');
+    const stylesList = axios.get('http://ec2-18-206-251-132.compute-1.amazonaws.com/api/v1/styles/');
+    const categoriesList = axios.get('http://ec2-18-206-251-132.compute-1.amazonaws.com/api/v1/categories/');
     Promise.all([artistsList, eventsList, stylesList, categoriesList])
       .then((responses) => {
         const artistList = responses[0].data;
@@ -40,7 +40,7 @@ const APIMiddleware = (store) => (next) => (action) => {
       });
   }
   else if (action.type === 'FETCH_EVENTS') {
-    axios.get('http://localhost:3001/api/v1/events/')
+    axios.get('http://ec2-18-206-251-132.compute-1.amazonaws.com/api/v1/events/')
       .then((response) => {
         store.dispatch({
           type: 'LOAD_EVENTS',
@@ -51,7 +51,7 @@ const APIMiddleware = (store) => (next) => (action) => {
   else if (action.type === 'NEW_EVENTS') {
     const state = store.getState();
     const id = localStorage.getItem('id');
-    axios.post('http://localhost:3001/api/v1/events/', {
+    axios.post('http://ec2-18-206-251-132.compute-1.amazonaws.com/api/v1/events/', {
       address: state.createEvent.address,
       date: state.createEvent.date,
       description: state.createEvent.description,
@@ -94,7 +94,7 @@ const APIMiddleware = (store) => (next) => (action) => {
     else {
       user_type.style = [state.createProfil.user_style];
     }
-    axios.post('http://localhost:3001/api/v1/users/', user_type)
+    axios.post('http://ec2-18-206-251-132.compute-1.amazonaws.com/api/v1/users/', user_type)
       .then(() => {
         window.scroll(0, 0);
         window.location = '/connexion';
@@ -102,7 +102,7 @@ const APIMiddleware = (store) => (next) => (action) => {
   }
   else if (action.type === 'EDIT_USER') {
     const state = store.getState();
-    axios.put('http://localhost:3001/api/v1/users/' + localStorage.getItem('id'), {
+    axios.put('http://ec2-18-206-251-132.compute-1.amazonaws.com/api/v1/users/' + localStorage.getItem('id'), {
       name: state.editProfil.name,
       firstname: state.editProfil.firstname,
       lastname: state.editProfil.lastname,
@@ -141,7 +141,7 @@ const APIMiddleware = (store) => (next) => (action) => {
   else if (action.type === 'LOGIN') {
     const state = store.getState();
     const token = null;
-    axios.post('http://localhost:3001/api/login_check', {
+    axios.post('http://ec2-18-206-251-132.compute-1.amazonaws.com/api/login_check', {
       username: state.connectedUser.email,
       password: state.connectedUser.password,
     }, {
