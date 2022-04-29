@@ -1,0 +1,84 @@
+$profileWidth: 110px;
+$bannerHeight: 100px;
+
+.little-card {
+  max-width: 225px;
+  min-width: 225px;
+  height: 300px;
+  box-shadow: 0px 0px 26px 2px rgba(0,0,0,0.35);
+  border-radius: 8px;
+  overflow: hidden;
+  margin: 2rem;
+  transition: all 0.2s ease-in-out;
+  color: #333;
+  background: radial-gradient(at top,#fff 20%,#d2d2d2 100%);
+  font-weight: 500;
+
+  &__banner {
+    height: $bannerHeight;
+    width: 100%;
+    object-fit: cover;
+  }
+
+  &__main {
+    width: 100%;
+    height: calc(100% - $bannerHeight);
+    position: relative;
+
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    padding-top: calc($profileWidth / 2 + 10px);
+
+    &__profile {
+      width: $profileWidth;
+      height: $profileWidth;
+      object-fit: cover;
+      border-radius: 50%;
+      position: absolute;
+      top: calc(-110px / 2);
+      left: calc(50% - 55px);
+      border: 1px solid #333;
+    }
+
+    &__title {
+      font-size: 1.3rem;
+      text-align: center;
+    }
+
+    &__number {
+      margin: 0.3rem 0;
+    }
+
+    &__note {
+      display: flex;
+
+      &__stars {
+        width: 20px;
+      }
+    }
+
+    &__location {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      &__pin {
+        width: 20px;
+      }
+    }
+
+    &__more {
+      text-decoration: underline;
+      position: absolute;
+      bottom: 10px;
+    }
+
+  }
+}
+
+.little-card:hover {
+  transform: scale(1.05);
+  cursor: pointer;
+}

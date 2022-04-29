@@ -1,0 +1,65 @@
+.register {
+  width: 100%;
+  height: fit-content;
+
+  &__title {
+    font-size: 1.6rem;
+    text-align: center;
+    margin: 1.5rem 0;
+    font-weight: 500;
+    text-transform: uppercase;
+    background: #ca0e43;
+    padding: 1.5rem 0;
+    color: white;
+    font-weight: bold;
+  }
+
+  &__form {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    &__element {
+      display: flex;
+      flex-direction: column;
+      max-width: 500px;
+      width: 90%;
+      margin: 0.6rem auto;
+
+      &__description {
+        resize: none;
+        min-height: 200px;
+      }
+
+      &__input {
+        height: 2rem;
+        margin: 0.3rem 0;
+        padding: 0.5rem;
+        border: 1px solid #333;
+        border-radius: 3px;
+
+        &--picture {
+          border: none;
+          padding: 0;
+        }
+      }
+    }
+
+    &__submit {
+      max-width: 500px;
+      width: 90%;
+      height: 3rem;
+      margin: 2rem 0;
+      font-size: 1.5rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      border: none;
+      color: white;
+      background: #333;
+      border-radius: 5px;
+    }
+  }
+}

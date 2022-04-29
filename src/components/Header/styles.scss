@@ -1,11 +1,12 @@
 //Header
 
 .header {
-  width: 100vw;
+  width: 100%;
   height: 80px;
+  position: relative;
 
   &__menu {
-    width: 100vw;
+    width: 100%;
     height: 80px;
     // background-color: rgb(228, 214, 196);
     padding-left: 0.7rem;
@@ -21,6 +22,65 @@
 
     &__burger {
       height: 35px;
+      cursor: pointer;
     }
+    &__burger__cross {
+      height: 30px;
+    }
+
+    &-opened {
+      width: 100%;
+      height: 250px;
+      background-color: white;
+      z-index: 5;
+      position: absolute;
+  
+      &__ul {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        border-bottom: 2px solid #333;
+        border-top: 2px solid #333;
+        
+        &__li {
+          font-size: 1.8rem;
+          margin-bottom: 0.6rem;
+          text-transform: uppercase;
+  
+          &__active {
+            font-weight: bold;
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+  }
+}
+
+.header__menu--laptop {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 100%;
+  
+  a {
+    margin-right: 1rem;
+    font-size: 1.15rem;
+    color: #333;
+  }
+}
+
+
+@media screen and (max-width: 1024px) {
+  .header__menu--laptop {
+    display: none;
+  }
+}
+@media screen and (min-width: 1024px) {
+  .header__menu {
+    display: none;
   }
 }

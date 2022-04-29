@@ -1,0 +1,54 @@
+.errorpage {
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  position: relative;
+  height: 150px;
+
+  &__title {
+    font-size: 3rem;
+    font-weight: bold;
+    margin: 2rem 0;
+  }
+
+  &__img {
+    width: 300px;
+    animation: movingError 8s infinite linear;
+    position: absolute;
+    top: 150%;
+  }
+}
+
+@keyframes movingError {
+  0% {
+    transform: translateX(-100%) rotate(-360deg);
+  }
+  50% {
+    transform: translateX(100%) rotate(0deg);
+  }
+  100% {
+    transform: translateX(-100%) rotate(360deg);
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .errorpage__img {
+    width: 200px;
+  }
+  .errorpage__title {
+    font-size: 2rem;
+  }
+}
+@media screen and (max-width: 600px) {
+  .errorpage__img {
+    width: 100px;
+  }
+}
+@media screen and (max-width: 400px) {
+  .errorpage__title {
+    font-size: 1.5rem;
+  }
+}

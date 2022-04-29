@@ -1,0 +1,107 @@
+$profil-picture-width: 350px;
+
+.detail-container{
+  &__top {
+    height: 400px;
+    width: 100%;
+    object-fit: cover;
+  }
+  &__main {
+    width: 100%;
+    height: fit-content;
+    position: relative;
+    padding-top: calc(calc($profil-picture-width / 2) + 40px);
+
+    &__profile {
+      position: absolute;
+      border-radius: 50%;
+      width: $profil-picture-width;
+      height: $profil-picture-width;
+      top: -175px;
+      left: calc(50% - calc($profil-picture-width / 2));
+    }
+    
+    &__title {
+      text-align: center;
+      font-size: 3rem;
+      font-weight: 500;
+    }
+
+    &__note {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 1rem 0;
+
+      &__stars {
+        width: 30px;
+        margin-right: 0.2rem;
+      }
+
+      &__number {
+        font-size: 1.2rem;
+        margin-left: 0.8rem;
+      }
+    }
+
+    &__description {
+      width: 90%;
+      margin: 0 auto;
+    }
+
+    &__infos {
+      width: 90%;
+      margin: 2rem auto;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      flex-wrap: wrap;
+
+      &__element {
+        margin: 1rem;
+        list-style-type: disclosure-closed;
+      }
+    }
+
+    &__medias {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+
+      &__title {
+        margin: 1rem 0;
+        font-size: 1.5rem;
+        text-transform: uppercase;
+        font-weight: 500;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .detail-container__main {
+    padding-top: calc(calc(250px / 2) + 40px);
+    &__profile {
+      top: -125px;
+      width: 250px;
+      left: calc(50% - calc(250px / 2));
+    }
+  }
+  .detail-container{
+    &__top {
+      height: 300px;
+    }
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .detail-container__main {
+    padding-top: calc(calc(150px / 2) + 40px);
+    &__profile {
+      top: -75px;
+      width: 150px;
+      left: calc(50% - calc(150px / 2));
+    }
+  }
+}
