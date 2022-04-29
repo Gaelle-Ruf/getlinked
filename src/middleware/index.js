@@ -1,7 +1,10 @@
+/* eslint-disable prefer-const */
+/* eslint-disable camelcase */
+/* eslint-disable prefer-template */
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'http://ec2-3-95-157-245.compute-1.amazonaws.com/',
+  baseURL: 'http://ec2-18-206-251-132.compute-1.amazonaws.com/',
 });
 
 const APIMiddleware = (store) => (next) => (action) => {
@@ -16,10 +19,10 @@ const APIMiddleware = (store) => (next) => (action) => {
       });
   }
   else if (action.type === 'FETCH_HOME') {
-    const artistsList = axios.get('http://ec2-3-95-157-245.compute-1.amazonaws.com/api/v1/users/');
-    const eventsList = axios.get('http://ec2-3-95-157-245.compute-1.amazonaws.com/api/v1/events/');
-    const stylesList = axios.get('http://ec2-3-95-157-245.compute-1.amazonaws.com/api/v1/styles/');
-    const categoriesList = axios.get('http://ec2-3-95-157-245.compute-1.amazonaws.com/api/v1/categories/');
+    const artistsList = axios.get('http://ec2-18-206-251-132.compute-1.amazonaws.com/api/v1/users/');
+    const eventsList = axios.get('http://ec2-18-206-251-132.compute-1.amazonaws.com/api/v1/events/');
+    const stylesList = axios.get('http://ec2-18-206-251-132.compute-1.amazonaws.com/api/v1/styles/');
+    const categoriesList = axios.get('http://ec2-18-206-251-132.compute-1.amazonaws.com/api/v1/categories/');
     Promise.all([artistsList, eventsList, stylesList, categoriesList])
       .then((responses) => {
         const artistList = responses[0].data;
@@ -37,7 +40,7 @@ const APIMiddleware = (store) => (next) => (action) => {
       });
   }
   else if (action.type === 'FETCH_EVENTS') {
-    axios.get('http://ec2-3-95-157-245.compute-1.amazonaws.com/api/v1/events/')
+    axios.get('http://ec2-18-206-251-132.compute-1.amazonaws.com/api/v1/events/')
       .then((response) => {
         store.dispatch({
           type: 'LOAD_EVENTS',
@@ -47,7 +50,8 @@ const APIMiddleware = (store) => (next) => (action) => {
   }
   else if (action.type === 'NEW_EVENTS') {
     const state = store.getState();
-    axios.post('http://ec2-3-95-157-245.compute-1.amazonaws.com/api/v1/events/', {
+    const id = localStorage.getItem('id');
+    axios.post('http://ec2-18-206-251-132.compute-1.amazonaws.com/api/v1/events/', {
       address: state.createEvent.address,
       date: state.createEvent.date,
       description: state.createEvent.description,
@@ -57,16 +61,17 @@ const APIMiddleware = (store) => (next) => (action) => {
       picture: state.createEvent.picture,
       price: state.createEvent.price,
       slug: state.createEvent.slug,
-      user: 1,
+      user: id,
+      // user: 1,
     })
       .then(() => {
         window.scroll(0, 0);
-        window.location.reload();
+        window.location = '/evenements';
       });
   }
   else if (action.type === 'NEW_USER') {
     const state = store.getState();
-    axios.post('http://ec2-3-95-157-245.compute-1.amazonaws.com/api/v1/users/', {
+    let user_type = {
       type: state.createProfil.type,
       name: state.createProfil.name,
       firstname: state.createProfil.firstname,
@@ -81,19 +86,62 @@ const APIMiddleware = (store) => (next) => (action) => {
       instagram: state.createProfil.instagram,
       twitter: state.createProfil.twitter,
       picture: state.createProfil.picture,
-      user_style: state.createProfil.user_style,
-      user_category: state.createProfil.user_category,
       slug: state.createProfil.slug,
-    })
+    };
+    if (state.createProfil.type === 'organisateur') {
+      user_type.category = [state.createProfil.user_category];
+    }
+    else {
+      user_type.style = [state.createProfil.user_style];
+    }
+    axios.post('http://ec2-18-206-251-132.compute-1.amazonaws.com/api/v1/users/', user_type)
       .then(() => {
         window.scroll(0, 0);
         window.location = '/connexion';
       });
   }
+  else if (action.type === 'EDIT_USER') {
+    const state = store.getState();
+    axios.put('http://ec2-18-206-251-132.compute-1.amazonaws.com/api/v1/users/' + localStorage.getItem('id'), {
+      name: state.editProfil.name,
+      firstname: state.editProfil.firstname,
+      lastname: state.editProfil.lastname,
+      email: state.editProfil.email,
+      password: state.editProfil.password,
+      description: state.editProfil.description,
+      // nb_members: state.editProfil.nb_members,
+      address: state.editProfil.address,
+      website: state.editProfil.website,
+      facebook: state.editProfil.facebook,
+      instagram: state.editProfil.instagram,
+      twitter: state.editProfil.twitter,
+      picture: state.editProfil.picture,
+      slug: state.editProfil.slug,
+    })
+      .then((response) => {
+        // console.log(response);
+
+        localStorage.setItem('name', response.data.name);
+        localStorage.setItem('firstname', response.data.firstname);
+        localStorage.setItem('lastname', response.data.lastname);
+        localStorage.setItem('email', response.data.email);
+        localStorage.setItem('description', response.data.description);
+        localStorage.setItem('address', response.data.address);
+        localStorage.setItem('website', response.data.website);
+        localStorage.setItem('facebook', response.data.facebook);
+        localStorage.setItem('instagram', response.data.instagram);
+        localStorage.setItem('twitter', response.data.twitter);
+        localStorage.setItem('picture', response.data.picture);
+        localStorage.setItem('slug', response.data.slug);
+
+        window.scroll(0, 0);
+        window.location = '/';
+      });
+  }
   else if (action.type === 'LOGIN') {
     const state = store.getState();
     const token = null;
-    axios.post('http://ec2-3-95-157-245.compute-1.amazonaws.com/api/login_check', {
+    axios.post('http://ec2-18-206-251-132.compute-1.amazonaws.com/api/login_check', {
       username: state.connectedUser.email,
       password: state.connectedUser.password,
     }, {
@@ -109,6 +157,7 @@ const APIMiddleware = (store) => (next) => (action) => {
         });
         // console.log(response);
         localStorage.setItem('token', response.data.token);
+        localStorage.setItem('id', response.data.data.id);
         // localStorage.setItem('style', response.data.style.name);
         localStorage.setItem('type', response.data.data.type);
         localStorage.setItem('name', response.data.data.name);
@@ -129,7 +178,6 @@ const APIMiddleware = (store) => (next) => (action) => {
         window.location = '/';
       })
       .catch(() => {
-        // console.error(error);
         alert('Authentification échouée');
       });
   }

@@ -71,6 +71,8 @@ const EventsDetailComp = ({ userDetail }) => {
     });
   };
 
+  // console.log(userDetail);
+
   return (
     <div className="detail-container">
       {successPopup && (
@@ -102,9 +104,11 @@ const EventsDetailComp = ({ userDetail }) => {
         </div>
         <ul className="detail-container__main__infos">
           <li className="detail-container__main__infos__element">Nom de l'organisateur : {userDetail.user.name}</li>
-          <li className="detail-container__main__infos__element">Style de musique : rock</li>
-          <li className="detail-container__main__infos__element">Localisation : {userDetail.location}</li>
+          {/* <li className="detail-container__main__infos__element">Style de musique : rock</li> */}
+          <li className="detail-container__main__infos__element">Localisation : {userDetail.address}</li>
           <li className="detail-container__main__infos__element">Email : {userDetail.email}</li>
+          {userDetail.price !== '0' && userDetail.price !== '0.00' && <li className="detail-container__main__infos__element">Rémunération : {userDetail.price}€</li>}
+          {(userDetail.price === '0' || userDetail.price === '0.00') && <li className="detail-container__main__infos__element">Pas de rémunération</li>}
         </ul>
         <form className="detail-container__main__form" onSubmit={sendEmail}>
           <input type="hidden" name="name" value={userDetail.email} />

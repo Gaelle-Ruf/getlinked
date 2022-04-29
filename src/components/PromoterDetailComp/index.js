@@ -69,7 +69,7 @@ const PromoterDetailComp = ({ userDetail }) => {
     });
   };
 
-  console.log(userDetail);
+  // console.log(userDetail);
 
   return (
     <div className="detail-container">
@@ -101,10 +101,13 @@ const PromoterDetailComp = ({ userDetail }) => {
           {userDetail.description}
         </div>
         <ul className="detail-container__main__infos">
-          {/* <li className="detail-container__main__infos__element">taille du groupe : 5</li>
-          <li className="detail-container__main__infos__element">Style de musique : rock</li> */}
+          {/* <li className="detail-container__main__infos__element">taille du groupe : 5</li> */}
+          <li className="detail-container__main__infos__element">Type d'établissement : {userDetail.category[0].name}</li>
           <li className="detail-container__main__infos__element">Localisation : {userDetail.address}</li>
           <li className="detail-container__main__infos__element">Email : {userDetail.email}</li>
+          {userDetail.facebook && <li className="detail-container__main__infos__element">Facebook : {userDetail.facebook}</li>}
+          {userDetail.instagram && <li className="detail-container__main__infos__element">Instagram : {userDetail.instagram}</li>}
+          {userDetail.twitter && <li className="detail-container__main__infos__element">Twitter : {userDetail.twitter}</li>}
         </ul>
         <form className="detail-container__main__form" onSubmit={sendEmail}>
           <input type="hidden" name="name" value={userDetail.email} />
